@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PhonebookForm from './PhonebookForm/PhonebookForm';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
-import initialContacts from '../InitialContacts.json';
+// import initialContacts from '../InitialContacts.json';
 import { nanoid } from 'nanoid';
 
 class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
     filter: '',
   };
 
@@ -45,6 +45,20 @@ class App extends Component {
     }));
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  };
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  };
+  
   render() {
     const filteredContacts = this.getFilteredContacts();
 
