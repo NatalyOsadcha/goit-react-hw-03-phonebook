@@ -1,0 +1,10 @@
+.form {
+  padding: 15px;
+  border: 1px solid #4b4949;
+  width: 300px;
+}
+
+.formInput {
+  display: block;
+  margin-bottom: 15px;
+}
